@@ -1,5 +1,6 @@
 <template>
   <div class="card" :style="`box-shadow: 0px 0px 27px 0px ${borderColor}`">
+
     <v-tooltip text="Редактировать товар">
       <template v-slot:activator="{ props }">
         <v-btn
@@ -167,6 +168,7 @@
     getLocalCards();
     cards = cards.value.sort((a, b) => b.rating.rate - a.rating.rate);
   }
+
 </script>
 
 <style lang="scss" scoped>

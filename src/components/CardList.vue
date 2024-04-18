@@ -1,5 +1,11 @@
 <template>
-  <section
+  <div>
+    <div class="panel">
+      <button @click="sortByRatingInc(options.id)"> increase </button>
+      <button @click="sortByRatingDec(options.id)"> decrease</button>
+      <button @click="sortById(options.id)">without sort</button>
+    </div>
+    <section
     :style="`background: ${options.color}`"
     @drop="onDrop($event, options.id)"
     @dragover.prevent
@@ -35,6 +41,7 @@
       @save-card="addCard"
       @close-form="isNewCardDialogOpen = false" />
   </section>
+  </div>
 </template>
 
 <script setup>
@@ -129,10 +136,58 @@
         break;
     }
   }
+
+  function sortByRatingInc(id) {
+    if (id === 1) {
+      firstList.value = firstList.value.sort((a, b) => b.rating.rate - a.rating.rate);
+    } else if(id === 2) {
+      secondList.value = secondList.value.sort((a, b) => b.rating.rate - a.rating.rate);
+    } else {
+      lastList.value = lastList.value.sort((a, b) => b.rating.rate - a.rating.rate);
+    }
+  }
+
+  function sortByRatingDec(id) {
+    if (id === 1) {
+      firstList.value = firstList.value.sort((a, b) => a.rating.rate - b.rating.rate);
+    } else if (id === 2) {
+      secondList.value = secondList.value.sort((a, b) => a.rating.rate - b.rating.rate);
+    } else {
+      lastList.value = lastList.value.sort((a, b) => a.rating.rate - b.rating.rate);
+    }
+  }
+
+  function sortById(id){
+    if (id === 1) {
+      firstList.value = firstList.value.sort((a, b) => a.id - b.id);
+    } else if(id === 2) {
+      secondList.value = secondList.value.sort((a, b) => a.id - b.id);
+    } else {
+      lastList.value = lastList.value.sort((a, b) => a.id - b.id);
+    }
+  }
+
 </script>
 
 <style lang="scss" scoped>
-  section {
+ *{
+   .panel {
+     display: flex;
+     justify-content: space-between;
+     border: 1px solid #fff;
+     border-radius: 10px;
+     color: #fff;
+     padding: 10px;
+     margin: 10px 0;
+     button {
+        background-color: rgba(10, 166, 227, 0.384);
+        border: none;
+        padding: 10px;
+       border-radius: 10px;
+     }
+   }
+
+ section {
     padding: 10px;
     width: 400px;
     min-height: 500px;
@@ -160,4 +215,5 @@
       }
     }
   }
+ }
 </style>
